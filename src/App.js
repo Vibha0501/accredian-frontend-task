@@ -23,9 +23,9 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route path="accredian-frontend-task/home" element={<Home />} />
           <Route
-            path="/"
+            path="accredian-frontend-task/"
             element={showSignUp ? <SignUpForm /> : <LoginForm />}
           />
         </Routes>
