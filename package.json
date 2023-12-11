@@ -2,7 +2,7 @@
   "name": "accredian-frontend-task",
   "version": "0.1.0",
   "private": true,
-  "homepage":"http://Vibha0501.github.io/accredian-frontend-task",
+  
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
