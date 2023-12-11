@@ -1,6 +1,16 @@
-import React,{useState} from "react";
-import LoginForm from "./components/LoginForm";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginForm from "./components/L0ginForm";
 import SignUpForm from "./components/SignupForm";
+
+function Home() {
+  return (
+    <div>
+      {/* Your home page content */}
+      <h1>Welcome to the Home Page</h1>
+    </div>
+  );
+}
 
 function App() {
   const [showSignUp, setShowSignUp] = useState(true);
@@ -11,23 +21,19 @@ function App() {
 
   return (
     <div className="App">
-      {showSignUp ? (
-        <div>
-          <h1>Sign Up</h1>
-          <SignUpForm />
-          <p>
-            Already registered? <button onClick={toggleForm}>Login</button>
-          </p>
-        </div>
-      ) : (
-        <div>
-          <h1>Login</h1>
-          <LoginForm />
-          <p>
-            Not registered yet? <button onClick={toggleForm}>Sign Up</button>
-          </p>
-        </div>
-      )}
+      <Router>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route
+            path="/"
+            element={showSignUp ? <SignUpForm /> : <LoginForm />}
+          />
+        </Routes>
+      </Router>
+      <p style={{ textAlign: "center" }}>
+        {showSignUp ? "Already have an account? " : "Not registered yet? "}
+        <button onClick={toggleForm}>{showSignUp ? "Login" : "Sign Up"}</button>
+      </p>
     </div>
   );
 }

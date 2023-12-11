@@ -1,26 +1,25 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  
+  Container,
+  Box,
   TextField,
   Button,
   Typography,
-  Container,
-  CssBaseline,
   Avatar,
-  
-  Box,
+  CssBaseline,
+ 
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import axios from "axios";
 
-const SignupForm = () => {
+const LoginForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -34,18 +33,12 @@ const SignupForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate form fields before submission
-    if (formData.password !== formData.confirmPassword) {
-      setErrorMessage("Passwords do not match");
-      return;
-    }
     try {
       const response = await axios.post(
-        "https://accredian-backend-task-0suu.onrender.com/signup",
-        formData // formData contains user input
+        "https://accredian-backend-task-0suu.onrender.com/login",
+        formData
       );
-      console.log("Sign-up response:", response.data); // Handle success response
-      // Clear error message on successful signup
+      console.log("Login response:", response.data);
       setErrorMessage("");
       navigate("/home");
     } catch (error) {
@@ -54,22 +47,20 @@ const SignupForm = () => {
         error.response.data &&
         error.response.data.message
       ) {
-        // Set error message received from the backend
         setErrorMessage(error.response.data.message);
       } else {
-        setErrorMessage("An error occurred. Please try again."); // Generic error message
+        setErrorMessage("An error occurred. Please try again.");
       }
       console.error("Error:", error);
     }
     console.log("Form submitted:", formData);
   };
-
   const defaultTheme = createTheme();
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        
         <Box
           sx={{
             marginTop: 8,
@@ -82,7 +73,7 @@ const SignupForm = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Login
           </Typography>
           <Box
             component="form"
@@ -99,21 +90,12 @@ const SignupForm = () => {
               margin="normal"
               required
               fullWidth
-              label="Username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
               label="Email"
-              type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
             />
+            
             <TextField
               margin="normal"
               required
@@ -124,16 +106,7 @@ const SignupForm = () => {
               value={formData.password}
               onChange={handleChange}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Confirm Password"
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-            />
+            
             <Button
               type="submit"
               fullWidth
@@ -141,13 +114,13 @@ const SignupForm = () => {
               color="primary"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Login
             </Button>
-            
           </Box>
         </Box>
       </Container>
     </ThemeProvider>
   );
 };
-export default SignupForm;
+
+export default LoginForm;
